@@ -1,0 +1,1626 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Taraz-Holod — Холодильная логистика в Таразе</title>
+<meta name="description" content="Taraz-Holod — крупнейший оператор холодильной логистики в Жамбылской области. Морозильное и холодильное хранение, кросс-докинг, фасовка. Более 15 000 м² складских площадей."/>
+<meta property="og:title" content="Taraz-Holod — Холодильная логистика в Таразе"/>
+<meta property="og:description" content="Склад, который не подведёт. Температурный контроль от −25°C до +15°C, 200+ клиентов, работаем с 2009 года."/>
+<meta property="og:type" content="website"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#edf5f9;
+  --ink:#03314b;
+  --mid:#5a8fa8;
+  --blue:#0077b6;
+  --ice:#caf0f8;
+  --white:#f8fcfe;
+  --line:rgba(3,49,75,.1);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:var(--ink);
+  overflow-x:hidden;
+  cursor:none;
+}
+
+/* ── SNOW CANVAS ── */
+#snow-canvas{
+  position:fixed;inset:0;
+  pointer-events:none;z-index:9997;
+  opacity:.75;
+}
+
+/* ── MAMMOTH ── */
+.mammoth-wrap{
+  position:absolute;
+  right:-2%; bottom:0;
+  width:min(860px,70vw);
+  pointer-events:none;
+  z-index:1;
+  display:flex;align-items:flex-end;
+}
+.mammoth-wrap svg{
+  width:100%;height:auto;
+  opacity:.10;
+}
+
+/* ── CUSTOM CURSOR ── */
+#cur{
+  position:fixed;width:10px;height:10px;
+  border-radius:50%;
+  background:var(--blue);
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:multiply;
+  opacity:0;
+  will-change:transform;
+  transition:transform .1s ease, background .2s;
+}
+body:hover #cur{opacity:1}
+/* ring — hidden */
+#cur2{display:none}
+/* ripple rings */
+@keyframes rpl{
+  0%  {width:0;height:0;opacity:.55}
+  100%{width:110px;height:110px;opacity:0}
+}
+.rpl{
+  position:fixed;border-radius:50%;
+  border:1.5px solid rgba(0,150,199,.7);
+  pointer-events:none;z-index:9992;
+  transform:translate(-50%,-50%);
+  animation:rpl .65s ease-out forwards;
+}
+/* trail dots */
+.tr{
+  position:fixed;border-radius:50%;
+  background:var(--blue);
+  pointer-events:none;z-index:9995;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:multiply;
+}
+/* gravity dots */
+.gd{
+  position:fixed;width:5px;height:5px;border-radius:50%;
+  background:rgba(0,150,199,.65);
+  pointer-events:none;z-index:9993;
+  transform:translate(-50%,-50%);
+  mix-blend-mode:multiply;
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 48px;height:68px;
+  mix-blend-mode:multiply;
+}
+.nav-logo{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:15px;
+  letter-spacing:3px;text-transform:uppercase;color:var(--ink);
+  text-decoration:none;
+}
+.nav-logo span{color:var(--blue)}
+.nav-right{display:flex;align-items:center;gap:32px}
+.nav-link{
+  font-size:12px;font-weight:500;letter-spacing:.5px;
+  color:var(--ink);text-decoration:none;opacity:.5;
+  transition:opacity .2s;
+}
+.nav-link:hover{opacity:1}
+.lang-row{display:flex;gap:2px}
+.lb{
+  font-size:11px;font-weight:600;letter-spacing:.5px;
+  background:none;border:none;color:var(--ink);opacity:.35;
+  cursor:none;padding:3px 7px;border-radius:3px;
+  font-family:'Inter',sans-serif;transition:all .15s;
+}
+.lb.on{opacity:1;background:var(--ink);color:var(--white)}
+.lb:hover{opacity:.8}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  display:grid;grid-template-rows:1fr auto;
+  padding:72px 48px 64px;
+  position:relative;overflow:hidden;
+  background:var(--white);
+}
+.hero-noise{
+  position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.03'/%3E%3C/svg%3E");
+  pointer-events:none;opacity:.4;
+}
+/* mountains */
+.hero-mountains{
+  position:absolute;bottom:0;left:0;width:100%;
+  pointer-events:none;z-index:0;
+}
+.hero-line{
+  position:absolute;top:0;bottom:0;
+  width:1px;background:var(--line);
+}
+.hero-top{
+  display:flex;flex-direction:column;justify-content:flex-end;
+  position:relative;
+}
+.hero-eyebrow{
+  display:flex;align-items:center;gap:16px;
+  margin-bottom:32px;
+}
+.hero-eyebrow-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--blue);
+}
+.hero-eyebrow span{
+  font-size:11px;font-weight:500;letter-spacing:2px;
+  text-transform:uppercase;color:var(--mid);
+}
+.hero-h{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(52px,7.5vw,112px);
+  font-weight:800;line-height:.95;
+  letter-spacing:-3px;
+  color:var(--ink);
+}
+.hero-h em{
+  font-style:normal;
+  color:transparent;
+  -webkit-text-stroke:2px var(--ink);
+}
+.hero-h .blue-word{color:var(--blue)}
+
+/* ── word fly-in from left, staircase layout ── */
+@keyframes flyLeft{
+  0%  {opacity:0;transform:translateX(-72px)}
+  100%{opacity:1;transform:translateX(0)}
+}
+.word-fly{
+  display:block;   /* each line on its own row */
+  overflow:hidden;
+}
+.word-fly>*{
+  display:block;
+  opacity:0;
+  animation:flyLeft .7s cubic-bezier(.16,1,.3,1) forwards;
+}
+
+.hero-sub-row{
+  display:grid;grid-template-columns:1fr 1fr 1fr;
+  gap:0;margin-top:48px;
+  border-top:1px solid var(--line);
+  padding-top:32px;
+}
+.hero-sub-col{padding-right:48px}
+.hero-sub-col:nth-child(2){border-left:1px solid var(--line);padding-left:48px;padding-right:48px}
+.hero-sub-col:nth-child(3){border-left:1px solid var(--line);padding-left:48px;display:flex;align-items:center;justify-content:flex-end}
+.hero-sub-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);margin-bottom:8px}
+.hero-sub-val{font-size:15px;font-weight:400;color:var(--ink);line-height:1.5}
+.hero-sub-val strong{font-weight:600}
+.hero-cta-wrap{display:flex;gap:12px}
+.cta-pill{
+  display:inline-flex;align-items:center;gap:10px;
+  border:1.5px solid var(--ink);border-radius:100px;
+  padding:14px 28px;font-size:13px;font-weight:500;
+  color:var(--ink);background:none;cursor:none;
+  font-family:'Inter',sans-serif;letter-spacing:.2px;
+  transition:all .25s;text-decoration:none;
+}
+.cta-pill:hover,.cta-pill.fill{background:var(--ink);color:var(--white)}
+.cta-pill.fill{background:var(--blue);border-color:var(--blue);color:white}
+.cta-pill.fill:hover{background:var(--ink);border-color:var(--ink)}
+.cta-arrow{font-size:16px;transition:transform .2s}
+.cta-pill:hover .cta-arrow{transform:translateX(4px)}
+.hero-scroll-hint{
+  position:absolute;right:48px;bottom:64px;
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.hs-line{width:1px;height:60px;background:linear-gradient(to bottom,var(--blue),transparent);animation:grow 2s ease-in-out infinite}
+@keyframes grow{0%,100%{transform:scaleY(0);transform-origin:top}50%{transform:scaleY(1);transform-origin:top}}
+.hs-label{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--mid);writing-mode:vertical-rl}
+
+/* ── BIG NUMBER STRIP ── */
+#strip{
+  background:var(--ink);
+  overflow:hidden;padding:0;
+  display:flex;
+}
+.strip-inner{
+  display:flex;align-items:stretch;
+  width:100%;
+}
+.strip-num{
+  flex:1;padding:56px 48px;
+  border-right:1px solid rgba(255,255,255,.08);
+  position:relative;overflow:hidden;
+}
+.strip-num:last-child{border-right:none}
+.strip-num::before{
+  content:attr(data-big);
+  position:absolute;right:-10px;top:-20px;
+  font-family:'Syne',sans-serif;font-size:140px;font-weight:800;
+  color:rgba(255,255,255,.04);line-height:1;pointer-events:none;
+  white-space:nowrap;
+}
+.sn-val{
+  font-family:'Syne',sans-serif;font-size:48px;font-weight:800;
+  color:var(--ice);line-height:1;margin-bottom:10px;
+}
+.sn-val sup{font-size:22px;vertical-align:super}
+.sn-label{font-size:12px;color:rgba(255,255,255,.4);letter-spacing:.5px;line-height:1.5}
+
+/* ── INTRO TEXT BLOCK ── */
+#intro{
+  padding:120px 48px;
+  display:grid;grid-template-columns:1fr 2fr;gap:64px;
+  background:var(--bg);
+  border-bottom:1px solid var(--line);
+}
+.intro-label{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--mid);padding-top:8px;
+}
+.intro-text{
+  font-size:clamp(22px,2.8vw,36px);
+  font-weight:300;line-height:1.45;
+  color:var(--ink);
+  letter-spacing:-.3px;
+}
+.intro-text strong{font-weight:600;color:var(--blue)}
+
+/* ── SERVICES — HORIZONTAL SCROLL ── */
+#services{
+  background:var(--white);
+  padding:96px 0 96px 48px;
+  overflow:hidden;
+}
+.srv-header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding-right:48px;margin-bottom:56px;
+}
+.srv-title{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(32px,4vw,52px);
+  font-weight:800;line-height:1;letter-spacing:-1.5px;
+}
+.srv-count{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:var(--mid);margin-bottom:4px;
+}
+.srv-scroll-hint{font-size:12px;color:var(--mid);display:flex;align-items:center;gap:8px}
+.srv-scroll-hint::after{content:'→';font-size:16px}
+.srv-track{
+  display:flex;gap:0;overflow-x:auto;
+  scrollbar-width:none;cursor:grab;
+}
+.srv-track::-webkit-scrollbar{display:none}
+.srv-track:active{cursor:grabbing}
+.srv-card{
+  flex:0 0 360px;
+  border:1px solid var(--line);border-right:none;
+  padding:40px 36px 36px;
+  position:relative;overflow:hidden;
+  transition:background .3s;
+  background:var(--white);
+}
+.srv-card:last-child{border-right:1px solid var(--line);margin-right:48px}
+.srv-card:hover{background:var(--ink)}
+.srv-card:hover .srv-c-num,
+.srv-card:hover .srv-c-title,
+.srv-card:hover .srv-c-desc{color:rgba(255,255,255,.9)}
+.srv-card:hover .srv-c-temp{
+  background:rgba(255,255,255,.08);
+  border-color:rgba(255,255,255,.15);
+  color:var(--ice);
+}
+.srv-c-num{
+  font-family:'Syne',sans-serif;font-size:13px;font-weight:700;
+  letter-spacing:1px;color:var(--mid);margin-bottom:64px;
+  transition:color .3s;
+}
+.srv-c-title{
+  font-family:'Syne',sans-serif;font-size:22px;font-weight:800;
+  line-height:1.2;margin-bottom:14px;
+  transition:color .3s;
+}
+.srv-c-desc{
+  font-size:14px;line-height:1.7;color:var(--mid);
+  margin-bottom:28px;transition:color .3s;
+}
+.srv-c-temp{
+  display:inline-flex;align-items:center;gap:6px;
+  border:1px solid var(--line);border-radius:4px;
+  padding:5px 12px;font-size:11px;font-weight:600;
+  letter-spacing:.5px;color:var(--blue);
+  transition:all .3s;
+}
+.srv-c-arrow{
+  position:absolute;right:28px;bottom:28px;
+  width:36px;height:36px;border-radius:50%;
+  border:1px solid currentColor;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;opacity:.2;transition:opacity .3s;
+}
+.srv-card:hover .srv-c-arrow{opacity:.6;color:white}
+
+/* ── SPLIT — ABOUT ── */
+#about{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:80vh;
+}
+.about-left{
+  background:var(--ink);
+  padding:96px 72px 96px 48px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.about-left::before{
+  content:'15';
+  position:absolute;right:-20px;top:40px;
+  font-family:'Syne',sans-serif;font-size:280px;font-weight:800;
+  color:rgba(255,255,255,.04);line-height:1;pointer-events:none;
+}
+.about-tag{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.35);
+}
+.about-h{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(36px,4vw,56px);
+  font-weight:800;line-height:1.05;letter-spacing:-1.5px;
+  color:white;
+}
+.about-h em{font-style:normal;color:var(--ice)}
+.about-body{color:rgba(255,255,255,.5);font-size:16px;line-height:1.75;font-weight:300;margin-top:24px}
+.about-feats{display:flex;flex-direction:column;gap:0;margin-top:48px}
+.af{
+  display:flex;align-items:center;gap:20px;
+  padding:20px 0;border-top:1px solid rgba(255,255,255,.07);
+}
+.af-icon{font-size:20px;width:32px;flex-shrink:0}
+.af-text{font-size:14px;color:rgba(255,255,255,.6);line-height:1.4}
+.af-text strong{color:white;font-weight:500;display:block}
+.about-right{
+  background:var(--ice);
+  padding:96px 48px 96px 72px;
+  display:flex;flex-direction:column;justify-content:space-between;
+}
+.ar-top-label{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--mid)}
+.ar-big{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(64px,8vw,110px);
+  font-weight:800;line-height:.9;letter-spacing:-4px;
+  color:var(--ink);
+}
+.ar-big span{display:block}
+.ar-big .ar-outline{
+  color:transparent;
+  -webkit-text-stroke:2px var(--blue);
+}
+.ar-desc{font-size:15px;color:var(--mid);line-height:1.7;max-width:340px}
+.ar-cert-row{display:flex;flex-direction:column;gap:12px;margin-top:auto}
+.ar-cert{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 18px;background:white;border-radius:8px;
+  border:1px solid rgba(0,119,182,.12);
+}
+.ar-cert-name{font-weight:600;font-size:14px;color:var(--ink)}
+.ar-cert-status{
+  font-size:10px;letter-spacing:1px;text-transform:uppercase;
+  color:var(--blue);font-weight:600;
+}
+
+/* ── PARTNERS MARQUEE ── */
+#partners{
+  background:var(--ink);
+  padding:0 0 44px;
+  overflow:hidden;
+}
+.marquee-header{
+  display:flex;align-items:center;gap:20px;
+  padding:36px 48px 32px;
+}
+.marquee-title{
+  font-family:'Syne',sans-serif;
+  font-size:13px;font-weight:700;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:rgba(248,252,254,.9);
+  white-space:nowrap;
+}
+.marquee-label-line{
+  flex:1;height:1px;
+  background:rgba(248,252,254,.15);
+}
+.marquee-inner{display:flex;width:max-content;will-change:transform;}
+.marquee-inner.running{animation:mq-th var(--mq-dur,28s) linear infinite;}
+@keyframes mq-th{from{transform:translateX(0);}to{transform:translateX(var(--mq-half,-50%));}}
+.mq-item{
+  height:64px;display:flex;align-items:center;justify-content:center;
+  position:relative;
+  font-family:'Syne',sans-serif;
+  font-size:15px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(248,252,254,.45);padding:0 40px;white-space:nowrap;
+  transition:color .25s,background .25s;
+  cursor:default;flex-shrink:0;
+}
+.mq-item::after{
+  content:'';position:absolute;right:0;top:50%;transform:translateY(-50%);
+  width:1px;height:28px;background:rgba(248,252,254,.15);
+}
+.mq-item:hover{color:var(--ice);background:rgba(248,252,254,.05);}
+
+/* ── CONTACT ── */
+#contact{
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:90vh;
+}
+.con-left{
+  background:var(--blue);
+  padding:96px 72px 96px 48px;
+  display:flex;flex-direction:column;justify-content:space-between;
+  position:relative;overflow:hidden;
+}
+.con-left::after{
+  content:'';position:absolute;
+  width:600px;height:600px;border-radius:50%;
+  right:-200px;bottom:-200px;
+  background:rgba(0,0,0,.08);
+  pointer-events:none;
+}
+.con-tag{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.con-h{
+  font-family:'Syne',sans-serif;
+  font-size:clamp(36px,4vw,60px);
+  font-weight:800;line-height:1;letter-spacing:-1.5px;
+  color:white;
+}
+.con-info{display:flex;flex-direction:column;gap:0}
+.ci{padding:20px 0;border-top:1px solid rgba(255,255,255,.12)}
+.ci-l{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px}
+.ci-v{font-size:15px;color:white;font-weight:400}
+.con-right{
+  background:var(--bg);
+  padding:96px 48px 96px 72px;
+  display:flex;flex-direction:column;justify-content:center;
+}
+.form-headline{
+  font-family:'Syne',sans-serif;font-size:28px;font-weight:800;
+  letter-spacing:-.5px;margin-bottom:40px;color:var(--ink);
+}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.fg{margin-bottom:16px}
+.fg label{
+  display:block;font-size:10px;letter-spacing:1.5px;text-transform:uppercase;
+  color:var(--mid);margin-bottom:6px;font-weight:500;
+}
+.fg input,.fg textarea,.fg select{
+  width:100%;background:white;
+  border:1px solid var(--line);border-radius:6px;
+  padding:12px 14px;font-size:14px;color:var(--ink);
+  font-family:'Inter',sans-serif;outline:none;
+  transition:border-color .2s;appearance:none;
+}
+.fg input:focus,.fg textarea:focus,.fg select:focus{border-color:var(--blue)}
+.fg textarea{resize:none;min-height:90px}
+.fg select option{background:var(--white)}
+.f-submit{
+  display:inline-flex;align-items:center;gap:10px;
+  background:var(--ink);color:var(--white);
+  border:none;border-radius:6px;
+  padding:14px 28px;font-size:14px;font-weight:600;
+  cursor:none;font-family:'Inter',sans-serif;
+  transition:all .25s;margin-top:8px;
+}
+.f-submit:hover{background:var(--blue)}
+.f-arrow{transition:transform .2s}
+.f-submit:hover .f-arrow{transform:translateX(4px)}
+/* ── WHATSAPP BUTTON ── */
+.wa-btn{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:12px 22px;
+  background:rgba(37,211,102,.10);
+  border:1.5px solid rgba(37,211,102,.35);
+  border-radius:6px;
+  color:#1a7a3f;
+  font-size:13px;font-weight:600;letter-spacing:.05em;
+  text-decoration:none;
+  transition:background .25s,border-color .25s,transform .15s;
+  margin-top:16px;
+}
+.wa-btn:hover{background:rgba(37,211,102,.18);border-color:rgba(37,211,102,.6);transform:translateY(-1px);}
+
+/* ── FOOTER ── */
+footer{
+  background:var(--ink);
+  padding:48px;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:20px;
+  border-top:1px solid rgba(255,255,255,.06);
+}
+.ft-logo{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:13px;
+  letter-spacing:3px;color:rgba(255,255,255,.4);
+}
+.ft-logo span{color:var(--ice)}
+.ft-copy{font-size:12px;color:rgba(255,255,255,.25)}
+.ft-links{display:flex;gap:24px}
+.ft-links a{font-size:12px;color:rgba(255,255,255,.3);text-decoration:none;transition:color .2s}
+.ft-links a:hover{color:white}
+
+/* ── REVEAL ANIMATIONS ── */
+.r{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.r.vis{opacity:1;transform:none}
+.r2{opacity:0;transition:opacity .8s ease}
+.r2.vis{opacity:1}
+
+/* ── RESPONSIVE ── */
+@media(max-width:1024px){
+  nav{padding:0 24px}
+  #hero{padding:100px 24px 48px}
+  .hero-sub-row{grid-template-columns:1fr 1fr;gap:0}
+  .hero-sub-col:nth-child(3){display:none}
+  #strip .strip-inner{flex-wrap:wrap}
+  .strip-num{flex:0 0 50%;border-bottom:1px solid rgba(255,255,255,.08)}
+  #intro{padding:80px 24px;grid-template-columns:1fr;gap:24px}
+  #services{padding:80px 0 80px 24px}
+  #about{grid-template-columns:1fr}
+  .about-left{padding:64px 24px}
+  .about-right{padding:64px 24px}
+  #contact{grid-template-columns:1fr}
+  .con-left{padding:64px 24px;min-height:auto}
+  .con-right{padding:64px 24px}
+  footer{padding:32px 24px;flex-direction:column;align-items:flex-start;gap:16px}
+}
+@media(max-width:640px){
+  .hero-h{letter-spacing:-2px}
+  .hero-sub-row{grid-template-columns:1fr}
+  .hero-sub-col:nth-child(2){border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:24px;margin-top:24px}
+  .f-row{grid-template-columns:1fr}
+  .hero-cta-wrap{flex-direction:column}
+  nav .nav-link{display:none}
+}
+</style>
+</head>
+<body>
+
+<canvas id="snow-canvas"></canvas>
+<div id="cur"></div>
+<div id="cur2"></div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">TARAZ<span>·</span>HOLOD</a>
+  <div class="nav-right">
+    <a href="#services" class="nav-link" data-i18n="nav_services">Услуги</a>
+    <a href="#about" class="nav-link" data-i18n="nav_about">О нас</a>
+    <a href="#contact" class="nav-link" data-i18n="nav_contact">Контакт</a>
+    <div class="lang-row">
+      <button class="lb on" onclick="setLang('ru')">RU</button>
+      <button class="lb" onclick="setLang('en')">EN</button>
+      <button class="lb" onclick="setLang('kz')">KZ</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-noise"></div>
+
+  <!-- MOUNTAIN SILHOUETTE — Tian Shan style, 3 depth layers -->
+  <svg class="hero-mountains" viewBox="0 0 1440 420" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMax slice">
+
+    <!-- Layer 1: Far background — tallest distant peaks, very light -->
+    <path fill="#0077b6" opacity="0.07"
+      d="M0,420 L0,310
+         C60,290 90,240 140,200
+         C170,175 195,158 230,148
+         C260,138 275,120 300,100
+         C320,84  340,72  360,68
+         C380,64  395,78  415,92
+         C435,106 448,118 470,108
+         C492,98  508,78  530,62
+         C548,48  562,38  578,32
+         C594,26  608,36  624,50
+         C640,64  654,80  672,88
+         C690,96  706,86  724,72
+         C742,58  758,42  778,36
+         C798,30  816,44  836,58
+         C856,72  872,88  892,96
+         C912,104 930,98  950,88
+         C970,78  988,62  1010,52
+         C1032,42 1050,38 1072,44
+         C1094,50 1112,64 1134,78
+         C1156,92 1174,104 1196,110
+         C1218,116 1238,108 1260,96
+         C1282,84 1300,68 1324,60
+         C1348,52 1372,58 1400,72
+         C1420,82 1434,92 1440,98
+         L1440,420 Z"/>
+
+    <!-- Layer 2: Mid mountains — jagged peaks, medium opacity -->
+    <path fill="#0096c7" opacity="0.07"
+      d="M0,420 L0,340
+         C40,320 70,295 108,268
+         C138,246 158,228 188,212
+         C210,200 228,188 252,178
+         C272,170 288,158 308,142
+         C326,128 342,114 362,108
+         C382,102 400,112 420,124
+         C440,136 456,150 478,158
+         C500,166 518,162 538,148
+         C558,134 574,116 596,106
+         C618,96  638,92  660,100
+         C682,108 698,124 718,138
+         C738,152 756,164 778,170
+         C800,176 820,168 840,154
+         C860,140 876,122 898,114
+         C920,106 940,108 962,118
+         C984,128 1000,144 1022,156
+         C1044,168 1064,174 1086,168
+         C1108,162 1126,146 1148,132
+         C1170,118 1190,108 1214,106
+         C1238,104 1258,114 1280,128
+         C1302,142 1320,158 1344,168
+         C1368,178 1396,178 1420,172
+         L1440,168 L1440,420 Z"/>
+
+    <!-- Layer 3: Foreground foothills — gentle rolling, slightly darker -->
+    <path fill="#03314b" opacity="0.055"
+      d="M0,420 L0,370
+         C50,358 90,342 136,326
+         C176,312 212,300 256,292
+         C296,284 332,278 372,272
+         C408,266 444,262 484,260
+         C520,258 556,260 596,266
+         C636,272 672,282 712,290
+         C748,297 784,302 824,304
+         C864,306 900,302 940,295
+         C980,288 1016,278 1056,272
+         C1096,266 1132,264 1172,268
+         C1212,272 1248,280 1288,292
+         C1324,302 1360,316 1400,328
+         C1420,334 1434,340 1440,344
+         L1440,420 Z"/>
+
+    <!-- Snow caps on tallest peaks — white highlights -->
+    <!-- Peak 1 ~x=578 -->
+    <path fill="white" opacity="0.18"
+      d="M556,50 C562,36 570,28 578,32 C586,28 594,36 600,50
+         C594,46 586,44 578,46 C570,44 562,46 556,50 Z"/>
+    <!-- Peak 2 ~x=360 -->
+    <path fill="white" opacity="0.14"
+      d="M342,76 C348,64 355,60 362,58 C369,60 376,66 382,76
+         C376,72 369,70 362,72 C355,70 348,72 342,76 Z"/>
+    <!-- Peak 3 ~x=778 -->
+    <path fill="white" opacity="0.14"
+      d="M758,40 C764,28 771,24 778,26 C785,24 792,30 798,40
+         C792,36 785,34 778,36 C771,34 764,36 758,40 Z"/>
+    <!-- Peak 4 ~x=1072 -->
+    <path fill="white" opacity="0.12"
+      d="M1054,48 C1060,36 1066,32 1072,30 C1078,32 1085,38 1090,48
+         C1084,44 1078,42 1072,44 C1066,42 1060,44 1054,48 Z"/>
+  </svg>
+
+  <svg class="cave-bg" viewBox="0 0 900 680" xmlns="http://www.w3.org/2000/svg"
+       fill="#8B3A10" stroke="none" style="display:none">
+
+    <!-- ═══ LARGE BULL / BISON — center composition ═══ -->
+    <g transform="translate(280,200)">
+      <!-- body mass -->
+      <path d="M60,80 C30,65 0,62 -15,75 C-28,88 -22,115 0,125 C30,138 75,135 108,120
+               C148,103 165,78 155,55 C145,33 118,28 95,35 C78,40 68,58 60,80 Z"/>
+      <!-- hump/shoulder -->
+      <path d="M55,35 C58,10 75,-8 95,-12 C115,-16 130,-2 128,18 C126,36 112,48 95,50 C78,52 62,46 55,35 Z"/>
+      <!-- head -->
+      <path d="M-15,75 C-30,68 -44,62 -50,52 C-56,40 -48,25 -34,22 C-20,19 -6,28 -2,42 C2,55 -4,68 -15,75 Z"/>
+      <!-- nose bump -->
+      <path d="M-50,52 C-58,50 -66,54 -68,62 C-70,70 -62,76 -54,72 C-46,68 -46,58 -50,52 Z"/>
+      <!-- horns -->
+      <path d="M-34,22 C-38,8 -30,-5 -18,-8 C-8,-10 0,-2 -2,10"/>
+      <path d="M-20,19 C-28,6 -24,-8 -12,-14 C-2,-18 8,-12 8,0"/>
+      <!-- tail -->
+      <path d="M155,70 C168,58 178,62 176,74 C174,84 162,86 157,80"/>
+      <path d="M176,74 C184,80 186,94 178,100 C172,104 164,98 165,90"/>
+      <!-- legs — thick stubs -->
+      <rect x="10" y="128" width="18" height="52" rx="6"/>
+      <rect x="38" y="130" width="18" height="50" rx="6"/>
+      <rect x="75" y="124" width="18" height="54" rx="6"/>
+      <rect x="100" y="120" width="18" height="56" rx="6"/>
+      <!-- belly fur dots -->
+      <circle cx="20" cy="122" r="4"/>
+      <circle cx="45" cy="126" r="3"/>
+      <circle cx="68" cy="125" r="4"/>
+      <circle cx="92" cy="120" r="3"/>
+    </g>
+
+    <!-- ═══ HUNTER 1 — running left, spear raised ═══ -->
+    <g transform="translate(140,150)">
+      <!-- head -->
+      <circle cx="0" cy="0" r="12"/>
+      <!-- torso -->
+      <line x1="0" y1="12" x2="-5" y2="55" stroke="#8B3A10" stroke-width="7"/>
+      <!-- left arm up with spear -->
+      <line x1="-2" y1="22" x2="-35" y2="-5" stroke="#8B3A10" stroke-width="6"/>
+      <!-- spear -->
+      <line x1="-35" y1="-5" x2="-75" y2="-28" stroke="#8B3A10" stroke-width="5"/>
+      <path d="M-75,-28 L-68,-22 L-65,-33 Z"/>
+      <!-- right arm back -->
+      <line x1="-2" y1="22" x2="20" y2="35" stroke="#8B3A10" stroke-width="6"/>
+      <!-- legs running — stride -->
+      <line x1="-5" y1="55" x2="-22" y2="95" stroke="#8B3A10" stroke-width="7"/>
+      <line x1="-22" y1="95" x2="-10" y2="118" stroke="#8B3A10" stroke-width="6"/>
+      <line x1="-5" y1="55" x2="18" y2="88" stroke="#8B3A10" stroke-width="7"/>
+      <line x1="18" y1="88" x2="8" y2="115" stroke="#8B3A10" stroke-width="6"/>
+    </g>
+
+    <!-- ═══ HUNTER 2 — leaping, arms out ═══ -->
+    <g transform="translate(580,120) scale(-1,1)">
+      <circle cx="0" cy="0" r="11"/>
+      <line x1="0" y1="11" x2="4" y2="52" stroke="#8B3A10" stroke-width="7"/>
+      <!-- arms spread wide -->
+      <line x1="2" y1="24" x2="-30" y2="8" stroke="#8B3A10" stroke-width="6"/>
+      <line x1="2" y1="24" x2="32" y2="5" stroke="#8B3A10" stroke-width="6"/>
+      <!-- spear in right hand -->
+      <line x1="32" y1="5" x2="70" y2="-15" stroke="#8B3A10" stroke-width="5"/>
+      <path d="M70,-15 L62,-10 L60,-20 Z"/>
+      <!-- legs leaping -->
+      <line x1="4" y1="52" x2="-18" y2="90" stroke="#8B3A10" stroke-width="7"/>
+      <line x1="-18" y1="90" x2="-30" y2="112" stroke="#8B3A10" stroke-width="6"/>
+      <line x1="4" y1="52" x2="24" y2="85" stroke="#8B3A10" stroke-width="7"/>
+      <line x1="24" y1="85" x2="35" y2="108" stroke="#8B3A10" stroke-width="6"/>
+    </g>
+
+    <!-- ═══ HUNTER 3 — small, bending forward with bow ═══ -->
+    <g transform="translate(700,280)">
+      <circle cx="0" cy="0" r="10"/>
+      <!-- torso leaning forward -->
+      <line x1="0" y1="10" x2="20" y2="45" stroke="#8B3A10" stroke-width="6"/>
+      <!-- bow arm extended -->
+      <line x1="5" y1="22" x2="-25" y2="30" stroke="#8B3A10" stroke-width="5"/>
+      <!-- bow arc -->
+      <path d="M-25,12 C-42,22 -44,38 -25,48" stroke="#8B3A10" stroke-width="4" fill="none"/>
+      <!-- bowstring -->
+      <line x1="-25" y1="12" x2="-25" y2="48" stroke="#8B3A10" stroke-width="3"/>
+      <!-- arrow -->
+      <line x1="-25" y1="30" x2="10" y2="26" stroke="#8B3A10" stroke-width="3"/>
+      <path d="M10,26 L2,22 L4,30 Z"/>
+      <!-- back arm -->
+      <line x1="5" y1="22" x2="28" y2="15" stroke="#8B3A10" stroke-width="5"/>
+      <!-- legs -->
+      <line x1="20" y1="45" x2="8" y2="82" stroke="#8B3A10" stroke-width="6"/>
+      <line x1="8" y1="82" x2="0" y2="105" stroke="#8B3A10" stroke-width="5"/>
+      <line x1="20" y1="45" x2="35" y2="78" stroke="#8B3A10" stroke-width="6"/>
+      <line x1="35" y1="78" x2="42" y2="100" stroke="#8B3A10" stroke-width="5"/>
+    </g>
+
+    <!-- ═══ HUNTER 4 — tiny silhouette, far right ═══ -->
+    <g transform="translate(820,180) scale(0.65)">
+      <circle cx="0" cy="0" r="12"/>
+      <line x1="0" y1="12" x2="0" y2="55" stroke="#8B3A10" stroke-width="7"/>
+      <line x1="0" y1="28" x2="-28" y2="45" stroke="#8B3A10" stroke-width="6"/>
+      <line x1="0" y1="28" x2="25" y2="18" stroke="#8B3A10" stroke-width="6"/>
+      <line x1="25" y1="18" x2="58" y2="5" stroke="#8B3A10" stroke-width="5"/>
+      <path d="M58,5 L50,10 L48,0 Z"/>
+      <line x1="0" y1="55" x2="-15" y2="95" stroke="#8B3A10" stroke-width="7"/>
+      <line x1="0" y1="55" x2="15" y2="95" stroke="#8B3A10" stroke-width="7"/>
+    </g>
+
+    <!-- ═══ RUNNER — bottom, fleeing ═══ -->
+    <g transform="translate(160,390)">
+      <circle cx="0" cy="0" r="10"/>
+      <line x1="0" y1="10" x2="5" y2="48" stroke="#8B3A10" stroke-width="6"/>
+      <line x1="3" y1="25" x2="-22" y2="14" stroke="#8B3A10" stroke-width="5"/>
+      <line x1="3" y1="25" x2="28" y2="38" stroke="#8B3A10" stroke-width="5"/>
+      <line x1="5" y1="48" x2="-15" y2="82" stroke="#8B3A10" stroke-width="6"/>
+      <line x1="-15" y1="82" x2="-5" y2="105" stroke="#8B3A10" stroke-width="5"/>
+      <line x1="5" y1="48" x2="22" y2="80" stroke="#8B3A10" stroke-width="6"/>
+      <line x1="22" y1="80" x2="30" y2="103" stroke="#8B3A10" stroke-width="5"/>
+    </g>
+
+    <!-- ═══ ABSTRACT MARKS ═══ -->
+    <!-- dot cluster top -->
+    <circle cx="230" cy="100" r="7"/>
+    <circle cx="248" cy="88"  r="5"/>
+    <circle cx="238" cy="75"  r="6"/>
+    <circle cx="256" cy="108" r="4"/>
+    <circle cx="218" cy="82"  r="4"/>
+
+    <!-- dot cluster right -->
+    <circle cx="840" cy="380" r="6"/>
+    <circle cx="856" cy="368" r="4"/>
+    <circle cx="848" cy="356" r="5"/>
+
+    <!-- curved arc marks (above bull) -->
+    <path d="M300,120 C330,90 370,85 400,105" stroke="#8B3A10" stroke-width="5" fill="none"/>
+    <path d="M310,105 C345,72 388,68 415,92"  stroke="#8B3A10" stroke-width="4" fill="none"/>
+
+    <!-- wavy ground line -->
+    <path d="M50,560 C110,548 170,562 230,553 C290,544 350,558 410,550
+             C470,542 530,556 590,548 C650,540 710,554 770,546 C820,540 860,550 900,545"
+          stroke="#8B3A10" stroke-width="5" fill="none"/>
+
+    <!-- zigzag marks -->
+    <polyline points="660,460 674,446 688,460 702,446 716,460 730,446"
+              stroke="#8B3A10" stroke-width="5" fill="none"/>
+
+    <!-- hand stencil outline (Altamira style) -->
+    <g transform="translate(500,440)" stroke="#8B3A10" fill="none">
+      <path stroke-width="4" d="M-5,0 C-7,-28 -6,-50 -4,-62"/>
+      <path stroke-width="4" d="M7,-2 C5,-30 4,-52 7,-64"/>
+      <path stroke-width="4" d="M18,-3 C17,-30 18,-52 20,-64"/>
+      <path stroke-width="4" d="M28,-1 C29,-26 30,-48 30,-58"/>
+      <path stroke-width="4" d="M-15,5 C-26,-5 -30,-18 -26,-28 C-22,-38 -12,-42 -4,-38"/>
+      <path stroke-width="4" d="M30,2 C38,-4 40,-16 36,-25"/>
+      <path stroke-width="4" d="M-15,5 C-12,14 -4,20 8,22 C18,24 26,20 30,12"/>
+    </g>
+
+  </svg>
+
+  <!-- MAMMOTH SILHOUETTE removed -->
+  <div class="mammoth-wrap" style="display:none">
+    <svg viewBox="-95 -15 980 630" xmlns="http://www.w3.org/2000/svg" fill="var(--ink)">
+      <!--
+        WOOLLY MAMMOTH — traced silhouette based on reference image 2.
+        Side view facing LEFT. Key: hump >> head height, huge upward-sweeping tusks,
+        shaggy fur texture on all edges, thick columnar legs.
+      -->
+
+      <!-- ═══ TUSK 1 (foreground, thicker) ═══
+           Traced from reference: starts at jaw, sweeps DOWN-LEFT in big arc, tip curves back UP.
+           stroke-linecap=round gives natural tusk taper feel. -->
+      <path fill="none" stroke="var(--ink)" stroke-width="26" stroke-linecap="round"
+        d="M 92,358
+           C 48,374  2,428 -34,490
+           C -58,532 -60,572 -32,586
+           C  -4,598  34,582  44,550
+           C   54,520  40,488  18,456
+           C   0,428  -2,394   8,362
+           C  14,340  26,322   4,240"/>
+
+      <!-- ═══ TUSK 2 (background, thinner, slightly inset) ═══ -->
+      <path fill="none" stroke="var(--ink)" stroke-width="17" stroke-linecap="round"
+        d="M 104,344
+           C 64,356  22,406 -10,462
+           C -30,498 -28,530  -4,540
+           C  18,548  46,532  52,502
+           C  58,474  46,448  30,420
+           C  14,394  12,364  22,340
+           C  28,322  40,308  16,232"/>
+
+      <!-- ═══ MAIN BODY SILHOUETTE ═══
+           Single closed path — clockwise from trunk tip.
+           Proportions:  hump peak y≈22,  head top y≈188,  belly y≈358,  feet y≈568
+      -->
+      <path d="
+        M 50,506
+        C 32,486 28,456 34,420
+        C 40,390 54,364 70,348
+        C 78,334 88,318 96,304
+        C 104,290 112,274 116,258
+        C 120,242 122,226 124,210
+        C 126,196 128,188 134,182
+        C 144,174 162,162 188,148
+        C 216,132 248,100 270,68
+        C 280,48 284,30 286,18
+        C 288,8 292,6 296,14
+        C 304,28 318,54 338,82
+        C 360,112 396,144 436,166
+        C 474,184 516,198 558,207
+        C 598,214 638,220 674,230
+        C 702,238 726,252 740,272
+        C 750,290 750,314 740,332
+        C 730,348 716,360 700,368
+        L 700,568 L 638,568 L 636,368
+        C 618,360 596,354 568,352
+        L 566,568 L 504,568 L 502,354
+        C 474,355 444,357 414,359
+        C 384,360 354,362 326,366
+        L 324,568 L 262,568 L 260,368
+        C 240,380 216,398 194,424
+        C 172,449 150,477 134,501
+        C 118,514 96,516 76,512
+        C 62,510 50,506 50,506
+        Z
+      "/>
+
+      <!-- ═══ SHAGGY BELLY FUR ═══
+           Zigzag polygon hanging below belly — key woolly mammoth feature.
+           Hangs ~42px below belly line. -->
+      <polygon points="
+        262,368  275,402  290,370  306,406  322,372  338,408
+        355,374  372,410  390,375  408,412  426,376  445,413
+        463,377  481,414  499,378  517,413  534,378  550,411
+        566,376  580,408  594,373  607,404  618,372  628,398  636,370
+        636,354  262,356
+      "/>
+
+      <!-- ═══ SHAGGY BACK / HUMP FUR ═══
+           Jagged outline along the top — double zigzag for thick fur look. -->
+      <polygon points="
+        178,176
+        192,152 208,175 226,149 244,173 264,143 286,168
+        310,136 334,162 358,130 382,157 406,127 430,154
+        454,126 478,152 502,126 524,150 546,126 566,148
+        584,127 600,146 614,129 626,145 638,130 648,144
+        648,164 638,150 626,163 614,147 600,166 584,148
+        566,168 546,147 524,170 502,147 478,172 454,148
+        430,176 406,150 382,179 358,153 334,184 310,160
+        286,192 264,167 244,197 226,173 208,199 192,177 178,202
+      "/>
+
+      <!-- ═══ TAIL ═══ -->
+      <path d="M 730,258 C 760,242 782,254 782,276 C 782,298 760,312 742,304
+               C 724,296 718,276 730,258 Z"/>
+      <path d="M 782,276 C 800,287 806,310 794,323 C 782,336 764,329 762,316
+               C 760,302 770,288 782,276 Z"/>
+
+      <!-- ═══ ADDITIONAL FUR STRANDS (belly area) ═══ -->
+      <path fill="none" stroke="var(--ink)" stroke-width="4" stroke-linecap="round" opacity="0.8" d="
+        M 276,402 C 273,418 272,432 275,444
+        M 306,406 C 303,422 302,438 305,451
+        M 338,408 C 335,425 334,441 337,454
+        M 372,410 C 369,427 368,444 371,458
+        M 408,412 C 405,429 404,447 407,461
+        M 445,413 C 442,430 441,448 444,462
+        M 481,414 C 478,431 477,449 480,463
+        M 517,413 C 514,430 513,448 516,462
+        M 550,411 C 547,428 546,445 549,458
+        M 580,408 C 577,424 576,440 579,453
+        M 607,404 C 604,420 603,435 606,447
+      "/>
+
+    </svg>
+  </div>
+
+  <div class="hero-top">
+    <div class="hero-eyebrow r">
+      <div class="hero-eyebrow-dot"></div>
+      <span data-i18n="eyebrow">Тараз, Казахстан — Холодильная логистика с 2009</span>
+    </div>
+    <h1 class="hero-h">
+      <span class="word-fly"><span data-i18n="h1" style="animation-delay:.08s">Склад,</span></span>
+      <span class="word-fly"><em data-i18n="h2" style="animation-delay:.24s;padding-left:clamp(32px,6vw,96px)">который</em></span>
+      <span class="word-fly"><span class="blue-word" data-i18n="h3" style="animation-delay:.42s;padding-left:clamp(64px,12vw,192px)">не подведёт</span></span>
+    </h1>
+  </div>
+
+  <div class="hero-sub-row r" style="transition-delay:.18s">
+    <div class="hero-sub-col">
+      <div class="hero-sub-label" data-i18n="sub1l">Специализация</div>
+      <div class="hero-sub-val" data-i18n="sub1v">Продукты питания —<br><strong>Оптовые и Розничные продажи</strong></div>
+    </div>
+    <div class="hero-sub-col">
+      <div class="hero-sub-label" data-i18n="sub2l">Температурный диапазон</div>
+      <div class="hero-sub-val"><strong>−25°C&nbsp;/&nbsp;+15°C</strong><br><span data-i18n="sub2v">6 температурных зон</span></div>
+    </div>
+    <div class="hero-sub-col">
+      <div class="hero-cta-wrap">
+        <a href="#contact" class="cta-pill fill" data-i18n="cta1">Получить предложение <span class="cta-arrow">→</span></a>
+        <a href="#services" class="cta-pill" data-i18n="cta2">Услуги</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-scroll-hint r2" style="transition-delay:.5s">
+    <div class="hs-line"></div>
+    <span class="hs-label" data-i18n="scroll">скролл</span>
+  </div>
+</section>
+
+<!-- STATS STRIP -->
+<div id="strip">
+  <div class="strip-inner">
+    <div class="strip-num r" data-big="15000">
+      <div class="sn-val"><span class="counter" data-target="15000">0</span> <sup>м²</sup></div>
+      <div class="sn-label" data-i18n="st1">Складских площадей</div>
+    </div>
+    <div class="strip-num r" data-big="200" style="transition-delay:.08s">
+      <div class="sn-val"><span class="counter" data-target="200">0</span><sup>+</sup></div>
+      <div class="sn-label" data-i18n="st2">Активных клиентов</div>
+    </div>
+    <div class="strip-num r" data-big="17" style="transition-delay:.16s">
+      <div class="sn-val"><span class="counter" data-target="17">0</span></div>
+      <div class="sn-label" data-i18n="st3">Лет на рынке</div>
+    </div>
+    <div class="strip-num r" data-big="5000" style="transition-delay:.24s">
+      <div class="sn-val"><span class="counter" data-target="5000">0</span> <sup>т</sup></div>
+      <div class="sn-label" data-i18n="st4">Единовременное хранение</div>
+    </div>
+  </div>
+</div>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="intro-label r" data-i18n="intro_tag">Наша миссия</div>
+  <p class="intro-text r" style="transition-delay:.1s">
+    <span data-i18n="intro_p">Мы не просто хранили товары 17 лет — мы строили <strong>инфраструктуру доверия</strong> для производителей, импортёров и розничных сетей Казахстана. Каждый градус под контролем. Каждая партия — застрахована.</span>
+  </p>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="srv-header">
+    <h2 class="srv-title r" data-i18n="srv_h">Что мы делаем</h2>
+    <div class="r" style="transition-delay:.1s">
+      <div class="srv-count" data-i18n="srv_count">06 услуг</div>
+      <div class="srv-scroll-hint" data-i18n="srv_drag">перетащить</div>
+    </div>
+  </div>
+  <div class="srv-track" id="srvTrack">
+    <div class="srv-card r">
+      <div class="srv-c-num">01</div>
+      <div class="srv-c-title" data-i18n="s1t">Морозильное<br>хранение</div>
+      <div class="srv-c-desc" data-i18n="s1d">Мясо, рыба, полуфабрикаты. Постоянный режим −18°C / −25°C с резервными компрессорами.</div>
+      <span class="srv-c-temp">❄️ −18 / −25°C</span>
+      <div class="srv-c-arrow">→</div>
+    </div>
+    <div class="srv-card r" style="transition-delay:.05s">
+      <div class="srv-c-num">02</div>
+      <div class="srv-c-title" data-i18n="s2t">Холодильное<br>хранение</div>
+      <div class="srv-c-desc" data-i18n="s2d">Молочная продукция, фрукты, овощи, напитки. Точная поддержка 0°C — +10°C.</div>
+      <span class="srv-c-temp">🌡️ 0 / +10°C</span>
+      <div class="srv-c-arrow">→</div>
+    </div>
+    <div class="srv-card r" style="transition-delay:.1s">
+      <div class="srv-c-num">03</div>
+      <div class="srv-c-title" data-i18n="s3t">Сухое<br>хранение</div>
+      <div class="srv-c-desc" data-i18n="s3d">Бакалея, консервы, упакованные товары. Контроль влажности и температуры.</div>
+      <span class="srv-c-temp">📦 +10 / +15°C</span>
+      <div class="srv-c-arrow">→</div>
+    </div>
+    <div class="srv-card r" style="transition-delay:.15s">
+      <div class="srv-c-num">04</div>
+      <div class="srv-c-title" data-i18n="s4t">Кросс-<br>докинг</div>
+      <div class="srv-c-desc" data-i18n="s4d">Перевалка грузов без длительного хранения. Оптимизация цепочки поставок 24/7.</div>
+      <span class="srv-c-temp">🚛 24/7</span>
+      <div class="srv-c-arrow">→</div>
+    </div>
+    <div class="srv-card r" style="transition-delay:.2s">
+      <div class="srv-c-num">05</div>
+      <div class="srv-c-title" data-i18n="s5t">Ответственное<br>хранение</div>
+      <div class="srv-c-desc" data-i18n="s5d">Страхование, WMS-учёт, инвентаризация. Полная ответственность за сохранность.</div>
+      <span class="srv-c-temp">📋 WMS</span>
+      <div class="srv-c-arrow">→</div>
+    </div>
+    <div class="srv-card r" style="transition-delay:.25s">
+      <div class="srv-c-num">06</div>
+      <div class="srv-c-title" data-i18n="s6t">Фасовка<br>и маркировка</div>
+      <div class="srv-c-desc" data-i18n="s6d">Переупаковка, стикеровка, нанесение штрихкодов. Готово к полке ритейлера.</div>
+      <span class="srv-c-temp">🔄 Value-add</span>
+      <div class="srv-c-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT / SPLIT -->
+<section id="about">
+  <div class="about-left">
+    <div>
+      <div class="about-tag r" data-i18n="ab_tag">О компании</div>
+    </div>
+    <div>
+      <h2 class="about-h r" style="transition-delay:.08s">
+        <span data-i18n="ab_h1">Жамбылская</span><br>
+        <em data-i18n="ab_h2">область</em><br>
+        <span data-i18n="ab_h3">доверяет нам</span>
+      </h2>
+      <p class="about-body r" style="transition-delay:.16s" data-i18n="ab_body">
+        Taraz-Holod — крупнейший оператор холодильной логистики в регионе. С 2009 года мы работаем с ведущими ритейлерами, производителями и импортёрами. Наши клиенты получают не просто склад — а надёжного партнёра.
+      </p>
+    </div>
+    <div class="about-feats r" style="transition-delay:.2s">
+      <div class="af">
+        <span class="af-icon">🔒</span>
+        <div class="af-text"><strong data-i18n="f1t">Мониторинг 24/7</strong><span data-i18n="f1d">Автоматические оповещения при отклонении температуры</span></div>
+      </div>
+      <div class="af">
+        <span class="af-icon">🚛</span>
+        <div class="af-text"><strong data-i18n="f2t">Собственный автопарк</strong><span data-i18n="f2d">Рефрижераторы для доставки по Тарасу и области</span></div>
+      </div>
+      <div class="af">
+        <span class="af-icon">📱</span>
+        <div class="af-text"><strong data-i18n="f3t">Личный кабинет</strong><span data-i18n="f3d">Онлайн-остатки и движение товара в реальном времени</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="about-right">
+    <div class="ar-top-label r" data-i18n="ar_tl">Работаем с</div>
+    <div class="ar-big r" style="transition-delay:.1s">
+      <span>200<sup style="font-size:40%;vertical-align:super">+</sup></span>
+      <span class="ar-outline" data-i18n="ar_clients">клиентами</span>
+    </div>
+    <p class="ar-desc r" style="transition-delay:.18s" data-i18n="ar_desc">Magnum, Small, Raimbek Agro, Food Master и другие ведущие компании Казахстана.</p>
+    <div class="ar-cert-row r" style="transition-delay:.26s">
+      <div class="ar-cert">
+        <span class="ar-cert-name">HACCP</span>
+        <span class="ar-cert-status" data-i18n="valid">Действует</span>
+      </div>
+      <div class="ar-cert">
+        <span class="ar-cert-name">ISO 22000:2018</span>
+        <span class="ar-cert-status" data-i18n="valid">Действует</span>
+      </div>
+      <div class="ar-cert">
+        <span class="ar-cert-name" data-i18n="vet">Ветеринарная лицензия</span>
+        <span class="ar-cert-status" data-i18n="valid">Действует</span>
+      </div>
+      <div class="ar-cert">
+        <span class="ar-cert-name" data-i18n="san">Санитарное заключение</span>
+        <span class="ar-cert-status" data-i18n="valid">Действует</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS MARQUEE -->
+<section id="partners">
+  <div class="marquee-header">
+    <div class="marquee-label-line"></div>
+    <span class="marquee-title">Наши клиенты</span>
+    <div class="marquee-label-line"></div>
+  </div>
+  <div class="marquee-inner" id="mqInnerTH">
+    <div class="mq-item">Magnum Cash&amp;Carry</div>
+    <div class="mq-item">Small</div>
+    <div class="mq-item">Raimbek Agro</div>
+    <div class="mq-item">Food Master</div>
+    <div class="mq-item">KazBalyk</div>
+    <div class="mq-item">Агрофирма Юг</div>
+    <div class="mq-item">Lactel Almaty</div>
+    <div class="mq-item">LogisticKZ</div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="con-left">
+    <div class="con-tag r" data-i18n="con_tag">Связаться с нами</div>
+    <h2 class="con-h r" style="transition-delay:.08s">
+      <span data-i18n="con_h1">Давайте</span><br>
+      <span data-i18n="con_h2">обсудим</span><br>
+      <span data-i18n="con_h3">вашу задачу</span>
+    </h2>
+    <div class="con-info r" style="transition-delay:.16s">
+      <div class="ci">
+        <div class="ci-l" data-i18n="ci_addr">Адрес</div>
+        <div class="ci-v" data-i18n="ci_addr_v">г. Тараз, ул. Мамбет батыра 2/6</div>
+      </div>
+      <div class="ci">
+        <div class="ci-l" data-i18n="ci_ph">Телефон</div>
+        <div class="ci-v"><a href="tel:+77086225868" style="color:inherit;text-decoration:none;">+7 708 622 58 68</a></div>
+      </div>
+      <div class="ci">
+        <div class="ci-l">Email</div>
+        <div class="ci-v"><a href="mailto:buh_thk_2008@mail.ru" style="color:inherit;text-decoration:none;">buh_thk_2008@mail.ru</a></div>
+      </div>
+      <div class="ci">
+        <div class="ci-l" data-i18n="ci_hr">Режим работы</div>
+        <div class="ci-v" data-i18n="ci_hr_v">Пн–Сб: 08:00–18:00</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="con-right">
+    <h3 class="form-headline r" data-i18n="form_h">Оставить заявку</h3>
+    <form onsubmit="doSubmit(event)" action="https://formsubmit.co/buh_thk_2008@mail.ru" method="POST">
+      <input type="hidden" name="_subject" value="Новая заявка — Taraz-Holod"/>
+      <input type="hidden" name="_captcha" value="false"/>
+      <input type="hidden" name="_next" value=""/>
+      <div class="f-row">
+        <div class="fg r" style="transition-delay:.06s">
+          <label data-i18n="f_name">Имя *</label>
+          <input type="text" name="name" required placeholder="Ваше имя"/>
+        </div>
+        <div class="fg r" style="transition-delay:.1s">
+          <label data-i18n="f_co">Компания</label>
+          <input type="text" name="company" placeholder="ООО / ИП"/>
+        </div>
+      </div>
+      <div class="f-row">
+        <div class="fg r" style="transition-delay:.14s">
+          <label data-i18n="f_ph">Телефон *</label>
+          <input type="tel" name="phone" required placeholder="+7 (___) ___-__-__"/>
+        </div>
+        <div class="fg r" style="transition-delay:.18s">
+          <label>Email</label>
+          <input type="email" name="email" placeholder="you@company.kz"/>
+        </div>
+      </div>
+      <button type="submit" class="f-submit r" style="transition-delay:.22s">
+        <span data-i18n="f_send">Отправить</span> <span class="f-arrow">→</span>
+      </button>
+      <a class="wa-btn" href="https://wa.me/77086225868" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.528 5.855L0 24l6.292-1.528A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.959 0-3.797-.52-5.386-1.43l-.386-.23-3.737.907.93-3.64-.252-.404A9.938 9.938 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+        Написать в WhatsApp
+      </a>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-logo">TARAZ<span>·</span>HOLOD</div>
+  <div class="ft-links">
+    <a href="#services" data-i18n="nav_services">Услуги</a>
+    <a href="#about" data-i18n="nav_about">О нас</a>
+    <a href="#contact" data-i18n="nav_contact">Контакт</a>
+  </div>
+  <div class="ft-copy" data-i18n="ft_copy">© 2026 Taraz-Holod · Taraz Group</div>
+</footer>
+
+<script>
+// ── CURSOR: crystal + trail + ripple + gravity dots ──
+const cur=document.getElementById('cur'),cur2=document.getElementById('cur2');
+let mx=0,my=0,curRot=0;
+
+// ── Trail (7 lagging dots) ──
+const TLEN=7;
+const trailDots=Array.from({length:TLEN},(_,i)=>{
+  const d=document.createElement('div');
+  d.className='tr';
+  const s=7-i*0.7;
+  d.style.cssText=`width:${s}px;height:${s}px;opacity:${((TLEN-i)/TLEN*0.55).toFixed(2)}`;
+  document.body.appendChild(d);
+  return {el:d,x:0,y:0};
+});
+
+// ── Gravity dots (5 orbital dots) ──
+const GLEN=5;
+const gravDots=Array.from({length:GLEN},(_,i)=>{
+  const d=document.createElement('div');
+  d.className='gd';
+  document.body.appendChild(d);
+  return {el:d,x:0,y:0,a:(i/GLEN)*Math.PI*2,r:28+i*4};
+});
+
+// ── Ripple on click ──
+document.addEventListener('click',e=>{
+  for(let i=0;i<3;i++){
+    const r=document.createElement('div');
+    r.className='rpl';
+    r.style.left=e.clientX+'px';
+    r.style.top=e.clientY+'px';
+    r.style.animationDelay=(i*90)+'ms';
+    document.body.appendChild(r);
+    r.addEventListener('animationend',()=>r.remove());
+  }
+});
+
+// ── Mouse move ──
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX; my=e.clientY;
+  cur.style.left=mx+'px'; cur.style.top=my+'px';
+});
+
+// ── Animation loop ──
+let cx=0,cy=0;
+(function loop(){
+  // ring lag
+  cx+=(mx-cx)*.13; cy+=(my-cy)*.13;
+  cur2.style.left=cx+'px'; cur2.style.top=cy+'px';
+
+  // trail chain
+  trailDots[0].x+=(mx-trailDots[0].x)*.42;
+  trailDots[0].y+=(my-trailDots[0].y)*.42;
+  for(let i=1;i<TLEN;i++){
+    trailDots[i].x+=(trailDots[i-1].x-trailDots[i].x)*.38;
+    trailDots[i].y+=(trailDots[i-1].y-trailDots[i].y)*.38;
+  }
+  trailDots.forEach(t=>{t.el.style.left=t.x+'px';t.el.style.top=t.y+'px';});
+
+  // gravity orbital dots
+  gravDots.forEach((g,i)=>{
+    g.a+=0.028+i*0.004;
+    const tx=mx+Math.cos(g.a)*g.r, ty=my+Math.sin(g.a)*g.r;
+    g.x+=(tx-g.x)*.1; g.y+=(ty-g.y)*.1;
+    g.el.style.left=g.x+'px'; g.el.style.top=g.y+'px';
+  });
+
+  requestAnimationFrame(loop);
+})();
+
+// ── DRAG SCROLL ──
+const track=document.getElementById('srvTrack');
+let isDown=false,startX,scrollLeft;
+track.addEventListener('mousedown',e=>{isDown=true;startX=e.pageX-track.offsetLeft;scrollLeft=track.scrollLeft});
+track.addEventListener('mouseleave',()=>isDown=false);
+track.addEventListener('mouseup',()=>isDown=false);
+track.addEventListener('mousemove',e=>{if(!isDown)return;e.preventDefault();const x=e.pageX-track.offsetLeft;track.scrollLeft=scrollLeft-(x-startX)*1.5});
+
+// ── REVEAL ──
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');ro.unobserve(e.target)}});
+},{threshold:.1});
+document.querySelectorAll('.r,.r2').forEach(el=>ro.observe(el));
+
+// ── COUNT UP ──
+const co=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(!e.isIntersecting)return;
+    const el=e.target,target=+el.dataset.target,dur=1600;
+    let start=null;
+    const step=ts=>{
+      if(!start)start=ts;
+      const p=Math.min((ts-start)/dur,1);
+      const ease=1-Math.pow(1-p,3);
+      el.textContent=Math.floor(ease*target).toLocaleString('ru');
+      if(p<1)requestAnimationFrame(step);else el.textContent=target.toLocaleString('ru');
+    };
+    requestAnimationFrame(step);
+    co.unobserve(el);
+  });
+},{threshold:.5});
+document.querySelectorAll('.counter').forEach(el=>co.observe(el));
+
+// ── i18n ──
+const T={
+  ru:{
+    eyebrow:'Тараз, Казахстан — Холодильная логистика с 2009',
+    h1:'Склад,',h2:'который',h3:'не подведёт',
+    sub1l:'Специализация',sub1v:'Продукты питания — розница и опт',
+    sub2l:'Температурный диапазон',sub2v:'6 температурных зон',
+    cta1:'Получить предложение',cta2:'Услуги',scroll:'скролл',
+    st1:'Складских площадей',st2:'Активных клиентов',st3:'Лет на рынке',st4:'Единовременное хранение',
+    intro_tag:'Наша миссия',
+    intro_p:'Мы не просто хранили товары 17 лет — мы строили инфраструктуру доверия для производителей, импортёров и розничных сетей Казахстана. Каждый градус под контролем. Каждая партия — застрахована.',
+    srv_h:'Что мы делаем',srv_count:'06 услуг',srv_drag:'перетащить',
+    s1t:'Морозильное хранение',s1d:'Мясо, рыба, полуфабрикаты. Постоянный режим −18°C / −25°C с резервными компрессорами.',
+    s2t:'Холодильное хранение',s2d:'Молочная продукция, фрукты, овощи, напитки. Точная поддержка 0°C — +10°C.',
+    s3t:'Сухое хранение',s3d:'Бакалея, консервы, упакованные товары. Контроль влажности и температуры.',
+    s4t:'Кросс-докинг',s4d:'Перевалка грузов без длительного хранения. Оптимизация цепочки поставок 24/7.',
+    s5t:'Ответственное хранение',s5d:'Страхование, WMS-учёт, инвентаризация. Полная ответственность за сохранность.',
+    s6t:'Фасовка и маркировка',s6d:'Переупаковка, стикеровка, нанесение штрихкодов. Готово к полке ритейлера.',
+    ab_tag:'О компании',ab_h1:'Жамбылская',ab_h2:'область',ab_h3:'доверяет нам',
+    ab_body:'Taraz-Holod — крупнейший оператор холодильной логистики в регионе. С 2009 года мы работаем с ведущими ритейлерами, производителями и импортёрами. Наши клиенты получают не просто склад — а надёжного партнёра.',
+    f1t:'Мониторинг 24/7',f1d:'Автоматические оповещения при отклонении температуры',
+    f2t:'Собственный автопарк',f2d:'Рефрижераторы для доставки по Тарасу и области',
+    f3t:'Личный кабинет',f3d:'Онлайн-остатки и движение товара в реальном времени',
+    ar_tl:'Работаем с',ar_clients:'клиентами',ar_desc:'Magnum, Small, Raimbek Agro, Food Master и другие ведущие компании Казахстана.',
+    valid:'Действует',vet:'Ветеринарная лицензия',san:'Санитарное заключение',
+    con_tag:'Связаться с нами',con_h1:'Давайте',con_h2:'обсудим',con_h3:'вашу задачу',
+    ci_addr:'Адрес',ci_addr_v:'г. Тараз, ул. Мамбет батыра 2/6',ci_ph:'Телефон',ci_hr:'Режим работы',ci_hr_v:'Пн–Сб: 08:00–18:00',
+    form_h:'Оставить заявку',f_name:'Имя *',f_co:'Компания',f_ph:'Телефон *',f_send:'Отправить',
+    nav_services:'Услуги',nav_about:'О нас',nav_contact:'Контакт',
+    ft_copy:'© 2026 Taraz-Holod · Taraz Group'
+  },
+  en:{
+    eyebrow:'Taraz, Kazakhstan — Cold Logistics Since 2009',
+    h1:'Storage',h2:'that',h3:"won't fail you",
+    sub1l:'Specialization',sub1v:'Food products — retail & wholesale',
+    sub2l:'Temperature range',sub2v:'6 temperature zones',
+    cta1:'Get a Quote',cta2:'Services',scroll:'scroll',
+    st1:'Sqm warehouse space',st2:'Active clients',st3:'Years in market',st4:'Tons single storage',
+    intro_tag:'Our Mission',
+    intro_p:"We haven't just stored goods for 17 years — we've been building an infrastructure of trust for manufacturers, importers and retail chains in Kazakhstan. Every degree under control. Every batch insured.",
+    srv_h:'What we do',srv_count:'06 services',srv_drag:'drag to explore',
+    s1t:'Freezer Storage',s1d:'Meat, fish, semi-finished products. Constant −18°C / −25°C with backup compressors.',
+    s2t:'Cold Storage',s2d:'Dairy, fruits, vegetables, beverages. Precise temperature control 0°C — +10°C.',
+    s3t:'Dry Storage',s3d:'Groceries, canned goods, packaged products. Humidity and temperature controlled.',
+    s4t:'Cross-Docking',s4d:'Rapid cargo transfer without long-term storage. Supply chain optimization 24/7.',
+    s5t:'Custody Storage',s5d:'Insurance, WMS tracking, inventory. Full liability for product integrity.',
+    s6t:'Packing & Labeling',s6d:'Repackaging, labeling, barcoding. Retail-ready.',
+    ab_tag:'About Us',ab_h1:'Zhambyl',ab_h2:'Region',ab_h3:'trusts us',
+    ab_body:'Taraz-Holod is the largest cold logistics operator in the region. Since 2009 we have worked with leading retailers, manufacturers and importers. Our clients get more than a warehouse — a reliable partner.',
+    f1t:'24/7 Monitoring',f1d:'Automatic alerts on temperature deviation',
+    f2t:'Own Vehicle Fleet',f2d:'Refrigerated trucks for delivery across Taraz and region',
+    f3t:'Client Portal',f3d:'Online stock levels and product movement in real time',
+    ar_tl:'Working with',ar_clients:'clients',ar_desc:'Magnum, Small, Raimbek Agro, Food Master and other leading companies in Kazakhstan.',
+    valid:'Valid',vet:'Veterinary License',san:'Sanitary Certificate',
+    con_tag:'Get in touch',con_h1:"Let's",con_h2:'discuss',con_h3:'your needs',
+    ci_addr:'Address',ci_addr_v:'Taraz, Mambet batyr St. 2/6',ci_ph:'Phone',ci_hr:'Working hours',ci_hr_v:'Mon–Sat: 08:00–18:00',
+    form_h:'Submit a request',f_name:'Name *',f_co:'Company',f_ph:'Phone *',f_send:'Send',
+    nav_services:'Services',nav_about:'About',nav_contact:'Contact',
+    ft_copy:'© 2026 Taraz-Holod · Taraz Group'
+  },
+  kz:{
+    eyebrow:'Тараз, Қазақстан — 2009 жылдан бері суық логистика',
+    h1:'Қойма,',h2:'сізді',h3:'ешқашан алдамайды',
+    sub1l:'Мамандандыру',sub1v:'Азық-түлік — бөлшек және көтерме',
+    sub2l:'Температура диапазоны',sub2v:'6 температура аймағы',
+    cta1:'Ұсыныс алу',cta2:'Қызметтер',scroll:'айналдыру',
+    st1:'Қойма алаңы, м²',st2:'Белсенді клиент',st3:'Нарықтағы жыл',st4:'Бір мезгілде сақтау, т',
+    intro_tag:'Біздің миссия',
+    intro_p:'Біз 17 жыл бойы тауарларды сақтап қана қойғанымыз жоқ — Қазақстанның өндірушілері, импорттаушылары және бөлшек желілері үшін сенім инфрақұрылымын қалыптастырдық. Әрбір градус бақылауда. Әрбір партия сақтандырылған.',
+    srv_h:'Не жасаймыз',srv_count:'06 қызмет',srv_drag:'сүйреу',
+    s1t:'Мұздату қоймасы',s1d:'Ет, балық, жартылай фабрикаттар. −18°C / −25°C тұрақты режим.',
+    s2t:'Тоңазытқыш қойма',s2d:'Сүт өнімдері, жемістер, көкөністер, сусындар. 0°C — +10°C.',
+    s3t:'Құрғақ қойма',s3d:'Бакалея, консервілер. Ылғалдылық пен температура бақылауы.',
+    s4t:'Кросс-докинг',s4d:'Ұзақ сақтаусыз жылдам тасымалдау. 24/7.',
+    s5t:'Жауапты сақтау',s5d:'Сақтандыру, WMS-есеп, инвентаризация.',
+    s6t:'Буып-түю және таңбалау',s6d:'Қайта орау, этикеттеу, штрих-код. Сатуға дайын.',
+    ab_tag:'Компания туралы',ab_h1:'Жамбыл',ab_h2:'облысы',ab_h3:'бізге сенеді',
+    ab_body:'Taraz-Holod — аймақтағы ең ірі суық логистика операторы. 2009 жылдан бері жетекші бөлшек сатушылармен, өндірушілермен және импорттаушылармен жұмыс жасаймыз.',
+    f1t:'24/7 Мониторинг',f1d:'Температура ауытқығанда автоматты хабарландыру',
+    f2t:'Меншікті автопарк',f2d:'Тараз бойынша рефрижератор жеткізу',
+    f3t:'Жеке кабинет',f3d:'Онлайн қалдықтар мен тауар қозғалысы',
+    ar_tl:'Жұмыс жасаймыз',ar_clients:'клиентпен',ar_desc:'Magnum, Small, Raimbek Agro, Food Master және Қазақстанның басқа жетекші компаниялары.',
+    valid:'Жарамды',vet:'Ветеринарлық лицензия',san:'Санитарлық қорытынды',
+    con_tag:'Бізбен байланысу',con_h1:'Сіздің',con_h2:'міндеттеріңізді',con_h3:'талқылайық',
+    ci_addr:'Мекенжай',ci_addr_v:'Тараз қ., Мамбет батыра к., 2/6',ci_ph:'Телефон',ci_hr:'Жұмыс уақыты',ci_hr_v:'Дс–Сб: 08:00–18:00',
+    form_h:'Өтінім қалдыру',f_name:'Аты *',f_co:'Компания',f_ph:'Телефон *',f_send:'Жіберу',
+    nav_services:'Қызметтер',nav_about:'Компания туралы',nav_contact:'Байланыс',
+    ft_copy:'© 2026 Taraz-Holod · Taraz Group'
+  }
+};
+let lang='ru';
+function setLang(l){
+  lang=l;
+  const t=T[l];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k=el.getAttribute('data-i18n');
+    if(t[k]!==undefined)el.textContent=t[k];
+  });
+  document.querySelectorAll('.lb').forEach(b=>b.classList.toggle('on',b.textContent===l.toUpperCase()));
+  document.documentElement.lang=l;
+}
+
+// ── FORM ──
+function doSubmit(e){
+  e.preventDefault();
+  const form=e.target;
+  const btn=form.querySelector('.f-submit');
+  const span=btn.querySelector('span');
+  btn.disabled=true;
+  span.textContent='…';
+  fetch('https://formsubmit.co/ajax/buh_thk_2008@mail.ru',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      name:form.querySelector('[name=name]').value,
+      company:form.querySelector('[name=company]').value||'—',
+      phone:form.querySelector('[name=phone]').value,
+      email:form.querySelector('[name=email]').value||'—',
+      _subject:'Новая заявка — Taraz-Holod'
+    })
+  })
+  .then(r=>r.json())
+  .then(()=>{
+    const msgs={ru:'✓ Заявка отправлена!',en:'✓ Request sent!',kz:'✓ Өтінім жіберілді!'};
+    span.textContent=msgs[lang];
+    btn.style.background='#0077b6';
+    form.reset();
+    setTimeout(()=>{span.textContent=T[lang].f_send;btn.style.background='';btn.disabled=false;},3500);
+  })
+  .catch(()=>{
+    span.textContent='Ошибка, попробуйте снова';
+    btn.style.background='#c0392b';
+    setTimeout(()=>{span.textContent=T[lang].f_send;btn.style.background='';btn.disabled=false;},3000);
+  });
+}
+
+// ── NAV BLEND FIX on scroll ──
+window.addEventListener('scroll',()=>{
+  const nav=document.querySelector('nav');
+  nav.style.mixBlendMode=window.scrollY>window.innerHeight-80?'normal':'multiply';
+  if(window.scrollY>window.innerHeight-80){nav.style.background='rgba(3,49,75,.92)';nav.style.backdropFilter='blur(16px)'}
+  else{nav.style.background='transparent';nav.style.backdropFilter='none'}
+  document.querySelectorAll('.nav-link').forEach(l=>l.style.color=window.scrollY>window.innerHeight-80?'rgba(255,255,255,.7)':'');
+  document.querySelector('.nav-logo').style.color=window.scrollY>window.innerHeight-80?'white':'';
+  document.querySelectorAll('.lb').forEach(b=>{
+    if(window.scrollY>window.innerHeight-80){b.style.color='white';if(b.classList.contains('on')){b.style.background='white';b.style.color=T[lang]?'#03314b':'#03314b'}}
+    else{b.style.color='';b.style.background=''}
+  });
+});
+
+// ── MARQUEE ──
+(function(){
+  var inner = document.getElementById('mqInnerTH');
+  if(!inner) return;
+  Array.from(inner.children).forEach(function(item){ inner.appendChild(item.cloneNode(true)); });
+  requestAnimationFrame(function(){
+    requestAnimationFrame(function(){
+      var halfW = inner.scrollWidth / 2;
+      var dur = halfW / 60;
+      inner.style.setProperty('--mq-half', '-' + halfW + 'px');
+      inner.style.setProperty('--mq-dur', dur + 's');
+      inner.classList.add('running');
+    });
+  });
+})();
+
+// ── SNOWFLAKES — pre-rendered offscreen canvases, no per-frame strokes ──
+(function(){
+  const canvas = document.getElementById('snow-canvas');
+  const ctx    = canvas.getContext('2d');
+  let W, H;
+  function resize(){ W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
+  resize();
+  window.addEventListener('resize', resize);
+
+  // Build templates ONCE — 4 sizes × 3 colors = 12 tiny canvases
+  const SIZES  = [4, 7, 10, 14];
+  const COLORS = [
+    [0,   119, 182, 0.55],  // blue
+    [0,   150, 199, 0.40],  // cold
+    [3,   49,  75,  0.30],  // ink
+  ];
+
+  function makeFlakeCanvas(r, rgba){
+    const sz  = r * 2 + 6;
+    const oc  = document.createElement('canvas');
+    oc.width  = oc.height = sz;
+    const cx  = sz / 2;
+    const ox  = oc.getContext('2d');
+    ox.strokeStyle = `rgba(${rgba[0]},${rgba[1]},${rgba[2]},${rgba[3]})`;
+    ox.lineWidth   = Math.max(0.7, r * 0.13);
+    ox.lineCap     = 'round';
+    for(let a = 0; a < 6; a++){
+      const ang = a * Math.PI / 3;
+      const ex  = cx + Math.cos(ang) * r;
+      const ey  = cx + Math.sin(ang) * r;
+      // main arm
+      ox.beginPath(); ox.moveTo(cx, cx); ox.lineTo(ex, ey); ox.stroke();
+      // two branches at 55% along each arm
+      if(r >= 6){
+        const bl = r * 0.38;
+        const bx = cx + Math.cos(ang) * r * 0.55;
+        const by = cx + Math.sin(ang) * r * 0.55;
+        for(const s of [1, -1]){
+          const ba = ang + s * Math.PI / 3;
+          ox.beginPath();
+          ox.moveTo(bx, by);
+          ox.lineTo(bx + Math.cos(ba) * bl, by + Math.sin(ba) * bl);
+          ox.stroke();
+        }
+      }
+    }
+    return { canvas: oc, half: sz / 2 };
+  }
+
+  const TMPLS = [];
+  SIZES.forEach(r => COLORS.forEach(c => TMPLS.push(makeFlakeCanvas(r, c))));
+  // 12 templates total, each tiny canvas drawn once
+
+  // 90 flakes — each just stores x/y/velocity + which template to blit
+  const N = 90;
+  const flakes = Array.from({length: N}, () => {
+    const t = TMPLS[Math.floor(Math.random() * TMPLS.length)];
+    return {
+      x:  Math.random() * window.innerWidth,
+      y:  Math.random() * window.innerHeight,
+      vy: Math.random() * 0.65 + 0.22,
+      vx: (Math.random() - 0.5) * 0.28,
+      w:  Math.random() * Math.PI * 2,
+      ws: Math.random() * 0.014 + 0.004,
+      wa: Math.random() * 0.55 + 0.18,
+      rot: Math.random() * Math.PI * 2,
+      rs:  (Math.random() - 0.5) * 0.008,
+      t,
+    };
+  });
+
+  let last = 0;
+  function draw(ts){
+    if(ts - last < 30){ requestAnimationFrame(draw); return; } // ~33fps cap
+    last = ts;
+    ctx.clearRect(0, 0, W, H);
+
+    for(const f of flakes){
+      f.w   += f.ws;
+      f.rot += f.rs;
+      f.x   += f.vx + Math.sin(f.w) * f.wa;
+      f.y   += f.vy;
+      if(f.y > H + 20){ f.y = -20; f.x = Math.random() * W; }
+      if(f.x > W + 20)  f.x = -20;
+      if(f.x < -20)     f.x = W + 20;
+
+      // rotate each snowflake — cheap with save/restore since no per-pixel work
+      ctx.save();
+      ctx.translate(f.x, f.y);
+      ctx.rotate(f.rot);
+      ctx.drawImage(f.t.canvas, -f.t.half, -f.t.half);
+      ctx.restore();
+    }
+    requestAnimationFrame(draw);
+  }
+  requestAnimationFrame(draw);
+})();
+</script>
+
+</html>
