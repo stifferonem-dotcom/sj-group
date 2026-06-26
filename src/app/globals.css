@@ -1,0 +1,163 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #faf6ee;
+  --gold: #b8893a;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 88px;
+}
+
+body {
+  background-color: var(--bg);
+  color: #241a0c;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+@layer components {
+  .container-x {
+    @apply mx-auto w-full max-w-container px-5 sm:px-8 lg:px-10;
+  }
+
+  /* Theme scopes set the foreground color for a section */
+  .theme-light {
+    color: #241a0c;
+  }
+  .theme-dark {
+    color: #faf6ee;
+  }
+
+  /* Muted body text adapts to the surrounding theme */
+  .text-muted {
+    color: rgba(36, 26, 12, 0.82);
+  }
+  .theme-dark .text-muted {
+    color: rgba(250, 246, 238, 0.85);
+  }
+
+  /* Light card (default) */
+  .card {
+    @apply relative overflow-hidden rounded-3xl border border-black/[0.07] bg-white/70 backdrop-blur-sm transition-all duration-500;
+  }
+  .card:hover {
+    @apply border-gold/40 bg-white shadow-[0_24px_60px_-28px_rgba(42,29,10,0.35)];
+  }
+
+  /* Dark card (for espresso / green / brown sections) */
+  .card-dark {
+    @apply relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.04] backdrop-blur-xl transition-all duration-500;
+  }
+  .card-dark:hover {
+    @apply border-gold-light/50 bg-white/[0.07];
+  }
+
+  /* Unified button system */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold tracking-wide transition-all duration-300 active:scale-[0.97];
+  }
+
+  .btn-primary {
+    @apply btn bg-gold text-espresso shadow-[0_10px_30px_-10px_rgba(184,137,58,0.7)] hover:bg-gold-light hover:shadow-[0_14px_40px_-10px_rgba(184,137,58,0.8)];
+  }
+
+  /* Outline button — adapts via currentColor */
+  .btn-ghost {
+    @apply btn border bg-transparent transition-colors;
+    border-color: color-mix(in srgb, currentColor 28%, transparent);
+  }
+  .btn-ghost:hover {
+    background-color: color-mix(in srgb, currentColor 7%, transparent);
+    border-color: color-mix(in srgb, currentColor 50%, transparent);
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-[14px] font-semibold uppercase tracking-[0.22em];
+    color: #7c5a1e;
+  }
+  .theme-dark .eyebrow {
+    @apply text-gold-light;
+  }
+
+  .section-title {
+    @apply font-display text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl lg:text-5xl;
+  }
+
+  /* Subtle dotted texture for dark panels */
+  .grain {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 0
+    );
+    background-size: 40px 40px;
+  }
+  /* Texture for light panels */
+  .grain-light {
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(42, 29, 10, 0.05) 1px,
+      transparent 0
+    );
+    background-size: 40px 40px;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  .gold-text {
+    @apply bg-gradient-to-r from-gold-light via-gold to-gold-dark bg-clip-text text-transparent;
+  }
+  .mask-fade-x {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f5edd8;
+}
+::-webkit-scrollbar-thumb {
+  background: #d8c9a6;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
