@@ -9,19 +9,34 @@ export default function Companies() {
       <div className="container-x">
         <SectionHeading
           eyebrow="Компании группы"
-          title="Три направления — одна экосистема"
-          text="Производство, холодная логистика и дистрибуция работают как единый механизм внутри холдинга."
+          title="Четыре направления — одна экосистема"
+          text="Производство, холодная логистика, дистрибуция и онлайн-доставка работают как единый механизм внутри холдинга."
         />
 
-        <div className="mt-14 grid gap-5 lg:grid-cols-3">
+        {/* Четыре карточки: по две на планшете, все четыре в ряд от 1280px,
+            где на каждую приходится ~285px — ниже этого метрики в две колонки
+            становятся нечитаемо узкими. */}
+        <div className="mt-14 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {companies.map((c, i) => (
             <Reveal key={c.name} delay={i * 0.1}>
               <article className="card group flex h-full flex-col p-7">
-                {/* visual header */}
+                {/* visual header — photo over the gradient, which stays as the
+                    fallback until the file lands in public/photos/ */}
                 <div className="relative mb-7 h-40 overflow-hidden rounded-2xl border border-black/10 bg-gradient-to-br from-espresso to-brown">
+                  {c.photo && (
+                    <div
+                      aria-hidden
+                      className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                      style={{ backgroundImage: `url("${c.photo}")` }}
+                    />
+                  )}
+                  <div className="absolute inset-0 bg-gradient-to-t from-espresso/85 via-espresso/25 to-transparent" />
                   <div className="absolute inset-0 grain opacity-50" />
                   <div className="absolute -right-6 -top-6 h-28 w-28 rounded-full bg-gold/25 blur-2xl transition-all duration-500 group-hover:bg-gold/40" />
-                  <span className="absolute bottom-4 left-4 rounded-full border border-white/15 bg-black/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-gold-light backdrop-blur">
+                  {/* Плашки одинаковые у всех карточек: общая ширина и запрет
+                      переноса. Иначе «Хладокомбинат и логистика» вставал в две
+                      строки и ряд выглядел рваным. */}
+                  <span className="absolute bottom-4 left-4 inline-flex min-w-[200px] items-center justify-center whitespace-nowrap rounded-full border border-white/15 bg-black/30 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-gold-light backdrop-blur">
                     {c.role}
                   </span>
                 </div>
@@ -44,13 +59,21 @@ export default function Companies() {
                   ))}
                 </div>
 
-                <a
-                  href="#contacts"
-                  className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-ink/80 transition-colors hover:text-gold"
-                >
-                  Подробнее
-                  <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </a>
+                {/* Ссылка только у тех, у кого есть куда вести. Чужой домен —
+                    в новую вкладку, чтобы посетитель не терял наш сайт;
+                    свои разделы открываются на месте. */}
+                {c.url && (
+                  <a
+                    href={c.url}
+                    {...(c.url.startsWith("/")
+                      ? {}
+                      : { target: "_blank", rel: "noopener noreferrer" })}
+                    className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-ink/80 transition-colors hover:text-gold"
+                  >
+                    Подробнее
+                    <IconArrow className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </a>
+                )}
               </article>
             </Reveal>
           ))}

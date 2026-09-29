@@ -30,7 +30,7 @@ export default function Timeline() {
             />
             {timeline.map((t, i) => (
               <motion.div
-                key={t.year}
+                key={`${t.year}-${t.title}`}
                 initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
@@ -58,7 +58,7 @@ export default function Timeline() {
         <ol className="mt-12 lg:hidden">
           {timeline.map((t, i) => (
             <motion.li
-              key={t.year}
+              key={`${t.year}-${t.title}`}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}

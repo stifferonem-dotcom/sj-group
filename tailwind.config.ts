@@ -22,8 +22,8 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ["var(--font-inter)", "system-ui", "sans-serif"],
-        display: ["var(--font-manrope)", "system-ui", "sans-serif"],
+        sans: ["var(--font-geist)", "system-ui", "sans-serif"],
+        display: ["var(--font-geist)", "system-ui", "sans-serif"],
       },
       maxWidth: {
         container: "1280px",

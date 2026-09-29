@@ -8,7 +8,7 @@ export default function Footer() {
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <div className="flex items-center gap-3">
-              <Logo className="h-9 w-9" />
+              <Logo className="h-12 w-[72px]" />
               <span className="font-display text-lg font-extrabold tracking-[0.18em] text-cream">
                 SJ GROUP
               </span>

@@ -33,7 +33,7 @@ export default function Header() {
     >
       <div className="container-x flex h-[72px] items-center justify-between">
         <a href="#top" className="flex items-center gap-3" aria-label={company.name}>
-          <Logo className="h-9 w-9" />
+          <Logo className="h-12 w-[72px]" />
           <span className="font-display text-lg font-extrabold tracking-[0.18em] text-ink">
             SJ GROUP
           </span>
@@ -89,7 +89,13 @@ export default function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 top-[72px] z-40 bg-cream/95 backdrop-blur-xl lg:hidden"
+            /* Подложка сплошная и без backdrop-blur.
+               Оверлей лежит внутри <header>, а у шапки при прокрутке своё
+               размытие; Safari на iOS не рисует размытие внутри размытия и
+               заодно теряет полупрозрачный фон — меню оказывалось поверх
+               страницы без подложки. Сплошной цвет снимает вопрос на всех
+               браузерах. */
+            className="fixed inset-0 top-[72px] z-40 bg-cream lg:hidden"
           >
             <nav className="container-x flex flex-col gap-1 py-6">
               {nav.map((item, i) => (

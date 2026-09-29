@@ -1,18 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Manrope } from "next/font/google";
+import { Geist } from "next/font/google";
 import "./globals.css";
 import "flag-icons/css/flag-icons.min.css";
 import { company } from "@/lib/content";
 
-const inter = Inter({
+const geist = Geist({
   subsets: ["latin", "cyrillic"],
-  variable: "--font-inter",
-  display: "swap",
-});
-
-const manrope = Manrope({
-  subsets: ["latin", "cyrillic"],
-  variable: "--font-manrope",
+  variable: "--font-geist",
   display: "swap",
 });
 
@@ -35,14 +29,16 @@ export const metadata: Metadata = {
     "Тараз-Холод",
     "Алтын Тараз Трейд",
     "кондитерская фабрика Сауле",
+    "ArbaFood",
+    "доставка продуктов Тараз",
     "экспорт продукции",
   ],
   authors: [{ name: "SJ GROUP" }],
-  alternates: { canonical: "https://sj-group.kz" },
+  alternates: { canonical: "https://sj-group.kz/" },
   openGraph: {
     type: "website",
     locale: "ru_KZ",
-    url: "https://sj-group.kz",
+    url: "https://sj-group.kz/",
     siteName: "SJ GROUP",
     title: "SJ GROUP — полный цикл FMCG: производство, логистика, дистрибуция",
     description,
@@ -65,12 +61,12 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "SJ GROUP",
-  url: "https://sj-group.kz",
+  url: "https://sj-group.kz/",
   foundingDate: "2008",
   description,
   address: {
     "@type": "PostalAddress",
-    streetAddress: "ул. Мамбет батыра 2/6",
+    streetAddress: "ул. Мамбет-Батыра 2/6",
     addressLocality: "Тараз",
     addressRegion: "Жамбылская область",
     addressCountry: "KZ",
@@ -86,6 +82,7 @@ const jsonLd = {
     { "@type": "Organization", name: "Тараз-Холод" },
     { "@type": "Organization", name: "Алтын Тараз Трейд" },
     { "@type": "Organization", name: "Кондитерская фабрика «Сауле»" },
+    { "@type": "Organization", name: "ArbaFood", url: "https://www.arba-food.kz/ru" },
   ],
 };
 
@@ -95,7 +92,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ru" className={`${inter.variable} ${manrope.variable}`}>
+    <html lang="ru" className={geist.variable}>
       <body className="font-sans antialiased">
         <script
           type="application/ld+json"
