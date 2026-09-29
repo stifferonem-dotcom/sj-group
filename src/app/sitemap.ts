@@ -5,7 +5,7 @@ import type { MetadataRoute } from "next";
 export const dynamic = "force-static";
 
 /* Карта сайта только по хосту sj-group.kz. Компании группы вынесены на
-   отдельные хосты-поддомены (taraz-holod.sj-group.kz, att.sj-group.kz) —
+   отдельные хосты-поддомены (tarazholod.sj-group.kz, att.sj-group.kz) —
    у каждого своя карта в его корне.
    Адрес со слешом на конце — так его отдаёт сервер (trailingSlash). */
 export default function sitemap(): MetadataRoute.Sitemap {

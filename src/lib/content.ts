@@ -58,7 +58,7 @@ export const companies = [
     role: "Хранение и логистика",
     text: "Крупный хладокомбинат и логистический оператор с температурным хранением и импортно-экспортной инфраструктурой.",
     photo: "/photos/company-taraz-holod.webp",
-    url: "https://taraz-holod.sj-group.kz/",
+    url: "https://tarazholod.sj-group.kz/",
     metrics: [
       { value: "+10…−25°C", label: "температурный режим" },
       { value: "24/7", label: "операционный цикл" },
